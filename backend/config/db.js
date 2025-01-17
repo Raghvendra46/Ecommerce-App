@@ -1,7 +1,11 @@
 const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+dotenv.config();
+
+const mongoURL = process.env.MONGO_URL
 
 mongoose
-  .connect("mongodb://127.0.0.1:27017/Ecommerce-App") //for windows
+  .connect(mongoURL) //for windows
   // .connect("mongodb://localhost:27017/merndb")
   .then(() => {
     console.log("Connected to MongoDB");

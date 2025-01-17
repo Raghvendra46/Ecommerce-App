@@ -1,6 +1,7 @@
 const userModel = require("../model/userModel");
+const JWT = require("jsonwebtoken");
 
-const addUser = async (req, res) => {
+const signUp = async (req, res) => {
   try {
     console.log("User Data => ", req.body);
     const { name, email, password, phone, address, answer } = req.body;
@@ -29,9 +30,10 @@ const addUser = async (req, res) => {
     });
 
     if (existingUser) {
-      return res
-        .status(200)
-        .send({ success: true, message: "User already exists, please Login" });
+      return res.status(409).send({
+        success: true,
+        message: "User already Registered, please Login",
+      });
     }
 
     const user = await new userModel({
@@ -42,55 +44,75 @@ const addUser = async (req, res) => {
       password,
       answer,
     }).save();
+
+    res.status(201).send({
+      success: true,
+      message: "User Registered Successfully",
+      user,
+    });
   } catch (error) {
     console.log(error);
     res.status(500).send({
       success: false,
-      message: "Error in Adding User",
+      message: "Error in Registration",
       error,
     });
   }
 };
 
-const searchUser = async (req, res) => {
+const login = async (req, res) => {
   try {
-    const { query } = req.body;
-
-    let users;
-    if (query) {
-      users = await userModel.find({
-        $or: [
-          { name: { $regex: query, $options: "i" } },
-          { email: { $regex: query, $options: "i" } },
-          { phone: { $regex: query, $options: "i" } },
-        ],
+    console.log("Login Data => ", req.body);
+    const { email, password } = req.body;
+    if ((!email || !password)) {
+      res.status(401).send({
+        success: false,
+        message: "Invalid Login ID and Password",
       });
-    } else {
-      users = await userModel.find();
     }
-    if (users.length === 0) {
+
+    const user = await userModel.findOne({ email });
+    if (!user) {
       return res.status(404).send({
         success: false,
-        message: "No Users found",
+        message: "Invalid Login ID",
       });
     }
+
+    if (password != user.password) {
+      return res.status(401).send({
+        success: false,
+        message: "Invalid Password",
+      });
+    }
+
+    const token = await JWT.sign({ _id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "7d",
+    });
+
     res.status(200).send({
       success: true,
-      message: "Users found Successfully",
-      users,
+      message: "Login Successful",
+      user: {
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        address: user.address,
+        role: user.role,
+      },
+      token,
     });
   } catch (error) {
     console.log(error);
     res.status(500).send({
       success: false,
-      message: "Error in Searching Users",
+      message: "Error logging in, try again later",
       error,
     });
   }
 };
 
-
 module.exports = {
-    addUser,
-    searchUser,
-}
+  signUp,
+  login,
+};
