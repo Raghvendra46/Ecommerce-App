@@ -25,7 +25,7 @@ const Register = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:3000/auth/register",
+        "http://localhost:3000/auth/signUp",
         formData
       );
       console.log("data => ", res.data);

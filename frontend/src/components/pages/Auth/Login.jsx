@@ -4,12 +4,15 @@ import { Link } from "react-router-dom";
 import { Toaster, toast } from "react-hot-toast";
 import Layout from "../../layouts/Layout";
 import "../../../styles/AuthStyles.css";
+import { useAuth } from "../../../context/auth";
 
 const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  const [auth, setAuth] = useAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,6 +30,11 @@ const Login = () => {
 
       if (res.data.success) {
         toast.success("User Login Successful");
+        setAuth({
+          ...auth,
+          user: res.data.user,
+          token: res.data.token,
+        });
         localStorage.setItem("auth", JSON.stringify(res.data));
       } else {
         toast.error(res.data.message || "Login failed");
