@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { Toaster, toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import Layout from "../../layouts/Layout";
 import "../../../styles/AuthStyles.css";
 
@@ -43,7 +43,6 @@ const Register = () => {
 
   return (
     <Layout>
-      <Toaster position="top-center" reverseOrder={false} />
       <div className="form-container">
         <h1>User Registration</h1>
         <form onSubmit={signUp}>

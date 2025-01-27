@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
-import { Toaster, toast } from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 import Layout from "../../layouts/Layout";
 import "../../../styles/AuthStyles.css";
-import { useAuth } from "../../../context/auth";
+import { useAuth } from "../../../context/Auth";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -13,6 +13,7 @@ const Login = () => {
   });
 
   const [auth, setAuth] = useAuth();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,6 +37,7 @@ const Login = () => {
           token: res.data.token,
         });
         localStorage.setItem("auth", JSON.stringify(res.data));
+        navigate("/");
       } else {
         toast.error(res.data.message || "Login failed");
       }
@@ -47,7 +49,6 @@ const Login = () => {
 
   return (
     <Layout>
-      <Toaster position="top-center" reverseOrder={false} />
       <div className="form-container">
         <h1>Login</h1>
         <form onSubmit={handleSubmit}>
