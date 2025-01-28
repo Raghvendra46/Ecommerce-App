@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import Layout from "../../layouts/Layout";
 import "../../../styles/AuthStyles.css";
-import { useAuth } from "../../../context/Auth";
+import { useAuth } from "../../../context/auth";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -78,6 +78,11 @@ const Login = () => {
             </button>
             <Link to="/signUp" className="btn btn-secondary">
               Sign Up
+            </Link>
+          </div>
+          <div align="center" className="mt-3">
+            <Link to="/forgot-password" className="forgot-password-link">
+              Forgot Password
             </Link>
           </div>
         </form>
