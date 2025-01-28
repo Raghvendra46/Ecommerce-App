@@ -10,6 +10,7 @@ import Policy from "./components/pages/Policy";
 import ForgotPassword from "./components/pages/Auth/ForgotPassword";
 import Dashboard from "./components/pages/User/Dashboard";
 import PrivateRoute from "./components/Routes/Private";
+import AdminRoute from "./components/Routes/Admin";
 
 const App = () => {
   return (
