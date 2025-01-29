@@ -2,6 +2,8 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../context/Auth";
 import { toast } from "react-hot-toast";
+import { MdSpaceDashboard } from "react-icons/md";
+import { MdOutlineLogout } from "react-icons/md";
 
 const Header = () => {
   const [auth, setAuth] = useAuth();
@@ -57,17 +59,37 @@ const Header = () => {
                   </li>
                 </>
               ) : (
-                <>
-                  <li className="nav-item">
-                    <NavLink
-                      onClick={handleLogout}
-                      to="/login"
-                      className="nav-link text-white"
-                    >
-                      Logout
-                    </NavLink>
-                  </li>
-                </>
+                <li className="nav-item dropdown">
+                  <NavLink
+                    className="nav-link dropdown-toggle text-white"
+                    to="#"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                  >
+                    {auth.user?.name}
+                  </NavLink>
+                  <ul className="dropdown-menu">
+                    <li>
+                      <NavLink
+                        to={`/dashboard/${
+                          auth?.user?.role === 1 ? "admin" : "user"
+                        }`}
+                        className="dropdown-item"
+                      >
+                        <MdSpaceDashboard /> Dashboard
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink
+                        onClick={handleLogout}
+                        to="/login"
+                        className="dropdown-item"
+                      >
+                        <MdOutlineLogout /> Logout
+                      </NavLink>
+                    </li>
+                  </ul>
+                </li>
               )}
 
               <li className="nav-item">

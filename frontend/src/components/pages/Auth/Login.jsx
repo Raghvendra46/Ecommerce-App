@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import Layout from "../../layouts/Layout";
 import "../../../styles/AuthStyles.css";
-import { useAuth } from "../../../context/auth";
+import { useAuth } from "../../../context/Auth";
 
 const Login = () => {
   const [formData, setFormData] = useState({
