@@ -5,6 +5,7 @@ const db = require("./config/db");
 const cors = require("cors");
 const authRoutes = require("./routes/authRoutes");
 const categoryRoutes = require("./routes/categoryRoutes");
+const productRoutes = require("./routes/productRoutes");
 
 dotenv.config();
 
@@ -20,6 +21,7 @@ app.use(express.json());
 app.use(morgan("dev"));
 app.use("/auth", authRoutes);
 app.use("/category", categoryRoutes);
+app.use("/product", productRoutes);
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
