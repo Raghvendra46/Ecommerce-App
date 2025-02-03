@@ -6,6 +6,7 @@ const cors = require("cors");
 const authRoutes = require("./routes/authRoutes");
 const categoryRoutes = require("./routes/categoryRoutes");
 const productRoutes = require("./routes/productRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ app.use(morgan("dev"));
 app.use("/auth", authRoutes);
 app.use("/category", categoryRoutes);
 app.use("/product", productRoutes);
+app.use("/user", userRoutes);
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
