@@ -18,11 +18,13 @@ import Products from "./components/pages/Admin/Products";
 import Users from "./components/pages/Admin/Users";
 import MyProfile from "./components/pages/User/MyProfile";
 import Orders from "./components/pages/User/Orders";
+import UpdateProduct from "./components/pages/Admin/UpdateProduct";
 
 const App = () => {
   return (
     <>
       <Routes>
+        {/* General Routes */}
         <Route path="/" element={<HomePage />}></Route>
         <Route path="/signUp" element={<Register />}></Route>
         <Route path="/login" element={<Login />}></Route>
@@ -31,11 +33,15 @@ const App = () => {
         <Route path="/policy" element={<Policy />}></Route>
         <Route path="*" element={<PageNotFound />}></Route>
         <Route path="/forgot-password" element={<ForgotPassword />}></Route>
+
+        {/* User Routes */}
         <Route path="/dashboard" element={<PrivateRoute />}>
           <Route path="user" element={<Dashboard />} />
           <Route path="user/my-profile" element={<MyProfile />}></Route>
           <Route path="user/my-orders" element={<Orders />}></Route>
         </Route>
+
+        {/* Admin Routes */}
         <Route path="/dashboard" element={<AdminRoute />}>
           <Route path="admin" element={<AdminDashboard />} />
           <Route
@@ -48,6 +54,10 @@ const App = () => {
           ></Route>
           <Route path="admin/products" element={<Products />}></Route>
           <Route path="admin/users" element={<Users />}></Route>
+          <Route
+            path="admin/products/:slug"
+            element={<UpdateProduct />}
+          ></Route>
         </Route>
       </Routes>
     </>

@@ -1,8 +1,8 @@
-import React, { userState, useEffect, useState } from "react";
-import Layout from "../../layouts/Layout";
-import AdminMenu from "../../layouts/AdminMenu";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import Layout from "../../layouts/Layout";
+import AdminMenu from "../../layouts/AdminMenu";
 
 const Users = () => {
   const [user, setUsers] = useState([]);
