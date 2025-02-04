@@ -24,7 +24,7 @@ const UpdateProduct = () => {
   const getSingleProduct = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:3000/product/get-product/${params.slug}`
+        `http://localhost:3000/product/search-product/${params.slug}`
       );
       setName(data.product.name);
       setId(data.product._id);
@@ -94,7 +94,7 @@ const UpdateProduct = () => {
       const { data } = await axios.delete(
         `http://localhost:3000i/product/delete-product/${id}`
       );
-      toast.success("Product DEleted Succfully");
+      toast.success("Product Deleted Successfully");
       navigate("/dashboard/admin/products");
     } catch (error) {
       console.log(error);
@@ -103,7 +103,7 @@ const UpdateProduct = () => {
   };
   return (
     <Layout title={"Dashboard - Create Product"}>
-      <div className="container-fluid m-3 p-3">
+      <div className="m-3 p-3">
         <div className="row">
           <div className="col-md-3">
             <AdminMenu />
@@ -111,7 +111,9 @@ const UpdateProduct = () => {
           <div className="col-md-9">
             <h1>Update Product</h1>
             <div className="m-1 w-75">
+              <label htmlFor="product-category">Category</label>
               <Select
+                id="product-category"
                 bordered={false}
                 placeholder="Select a category"
                 size="large"
@@ -162,7 +164,9 @@ const UpdateProduct = () => {
                 )}
               </div>
               <div className="mb-3">
+                <label htmlFor="product-name">Name</label>
                 <input
+                  id="product-name"
                   type="text"
                   value={name}
                   placeholder="write a name"
@@ -171,7 +175,9 @@ const UpdateProduct = () => {
                 />
               </div>
               <div className="mb-3">
+                <label htmlFor="product-description">Description</label>
                 <textarea
+                  id="product-description"
                   type="text"
                   value={description}
                   placeholder="write a description"
@@ -181,7 +187,9 @@ const UpdateProduct = () => {
               </div>
 
               <div className="mb-3">
+                <label htmlFor="product-price">Product Price</label>
                 <input
+                  id="product-price"
                   type="number"
                   value={price}
                   placeholder="write a Price"
@@ -190,7 +198,9 @@ const UpdateProduct = () => {
                 />
               </div>
               <div className="mb-3">
+                <label htmlFor="product-quantity">Quantity</label>
                 <input
+                  id="product-quantity"
                   type="number"
                   value={quantity}
                   placeholder="write a quantity"
@@ -198,32 +208,22 @@ const UpdateProduct = () => {
                   onChange={(e) => setQuantity(e.target.value)}
                 />
               </div>
-              <div className="mb-3">
-                <Select
-                  bordered={false}
-                  placeholder="Select Shipping "
-                  size="large"
-                  showSearch
-                  className="form-select mb-3"
-                  onChange={(value) => {
-                    setShipping(value);
-                  }}
-                  value={shipping ? "yes" : "No"}
-                >
-                  <Option value="0">No</Option>
-                  <Option value="1">Yes</Option>
-                </Select>
-              </div>
-              <div className="mb-3">
+              <div
+                className="mb-3"
+                style={{ display: "flex", justifyContent: "space-between" }}
+              >
                 <button className="btn btn-primary" onClick={handleUpdate}>
                   UPDATE PRODUCT
                 </button>
-              </div>
-              <div className="mb-3">
                 <button className="btn btn-danger" onClick={handleDelete}>
                   DELETE PRODUCT
                 </button>
               </div>
+              {/* <div className="mb-3">
+                <button className="btn btn-danger" onClick={handleDelete}>
+                  DELETE PRODUCT
+                </button>
+              </div> */}
             </div>
           </div>
         </div>

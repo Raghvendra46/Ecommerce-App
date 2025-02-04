@@ -6,6 +6,11 @@
   scroll-behavior: smooth;
 }
 
+body,
+html {
+  overflow-x: hidden;
+}
+
 body {
   background: linear-gradient(to right, #a1c4fd, #c2e9fb, #b2fefa, #89f7fe);
   color: #333;

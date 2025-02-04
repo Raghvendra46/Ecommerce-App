@@ -91,7 +91,7 @@ const CreateCategory = () => {
 
   return (
     <Layout>
-      <div className="container-fluid m-3 p-3 dashboard">
+      <div className="m-3 p-3 dashboard">
         <div className="row">
           <div className="col-md-3">
             <AdminMenu />
@@ -106,40 +106,53 @@ const CreateCategory = () => {
               />
             </div>
             <div className="w-75">
-              <table className="table">
+              <table className="table" style={{ borderCollapse: "collapse" }}>
                 <thead>
                   <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Actions</th>
+                    <th scope="col" style={{ padding: "10px" }}>
+                      Name
+                    </th>
+                    <th
+                      scope="col"
+                      style={{ textAlign: "center", padding: "10px" }}
+                    >
+                      Actions
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   {categories?.map((c) => (
-                    <>
-                      <tr>
-                        <td key={c._id}>{c.name}</td>
-                        <td>
-                          <button
-                            className="btn btn-primary ms-2"
-                            onClick={() => {
-                              setVisible(true);
-                              setUpdatedName(c.name);
-                              setSelected(c);
-                            }}
-                          >
-                            Edit
-                          </button>
-                          <button
-                            className="btn btn-danger ms-2"
-                            onClick={() => {
-                              handleDelete(c._id);
-                            }}
-                          >
-                            Delete
-                          </button>
-                        </td>
-                      </tr>
-                    </>
+                    <tr key={c._id}>
+                      <td style={{ padding: "10px" }}>{c.name}</td>
+                      <td
+                        style={{
+                          padding: "10px",
+                          display: "flex",
+                          justifyContent: "space-evenly",
+                          alignItems: "center",
+                        }}
+                      >
+                        <button
+                          className="btn btn-primary"
+                          onClick={() => {
+                            setVisible(true);
+                            setUpdatedName(c.name);
+                            setSelected(c);
+                          }}
+                          style={{ marginRight: "10px" }} // Adjust the margin for spacing
+                        >
+                          Edit
+                        </button>
+                        <button
+                          className="btn btn-danger"
+                          onClick={() => {
+                            handleDelete(c._id);
+                          }}
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
                   ))}
                 </tbody>
               </table>

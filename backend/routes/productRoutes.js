@@ -8,6 +8,10 @@ const {
   productPhoto,
   deleteProduct,
   updateProduct,
+  productCount,
+  productList,
+  searchProductController,
+  productCategoryController,
 } = require("../service/productService");
 
 const router = express.Router();
@@ -23,5 +27,13 @@ router.get("/product-photo/:pid", productPhoto);
 router.delete("/delete-product/:pid", deleteProduct);
 
 router.put("/update-product/:pid", formidable(), updateProduct);
+
+router.get("/product-count", productCount);
+
+router.get("/product-list/:page", productList);
+
+router.get("/search/:keyword", searchProductController);
+
+router.get("/product-category/:slug", productCategoryController);
 
 module.exports = router;

@@ -1,6 +1,7 @@
 const productModel = require("../model/productModel");
 const slugify = require("slugify");
 const fs = require("fs");
+const categoryModel = require("../model/categoryModel");
 
 const addProduct = async (req, res) => {
   try {
@@ -174,6 +175,88 @@ const updateProduct = async (req, res) => {
   }
 };
 
+const productCount = async (req, res) => {
+  try {
+    const total = await productModel.find({}).estimatedDocumentCount();
+    res.status(200).send({
+      success: true,
+      total,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      message: "Error while fetching product count",
+      error,
+    });
+  }
+};
+
+const productList = async (req, res) => {
+  try {
+    const perPage = 8;
+    const page = req.params.page ? req.params.page : 1;
+    const products = await productModel
+      .find({})
+      .select("-photo")
+      .skip((page - 1) * perPage)
+      .limit(perPage)
+      .sort({ createdAt: -1 });
+    res.status(200).send({
+      success: true,
+      products,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      message: "Error in per page control",
+      error,
+    });
+  }
+};
+
+const searchProductController = async (req, res) => {
+  try {
+    const { keyword } = req.params;
+    const results = await productModel
+      .find({
+        $or: [
+          { name: { $regex: keyword, $options: "i" } },
+          { description: { $regex: keyword, $options: "i" } },
+        ],
+      })
+      .select("-photo");
+    res.json(results);
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      message: "Error in searching product API",
+      error,
+    });
+  }
+};
+
+const productCategoryController = async (req, res) => {
+  try {
+    const category = await categoryModel.findOne({ slug: req.params.slug });
+    const products = await productModel.find({ category }).populate("category");
+    res.status(200).send({
+      success: true,
+      category,
+      products,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      error,
+      message: "Error while fetching products",
+    });
+  }
+};
+
 module.exports = {
   addProduct,
   getProduct,
@@ -181,4 +264,8 @@ module.exports = {
   productPhoto,
   deleteProduct,
   updateProduct,
+  productCount,
+  productList,
+  searchProductController,
+  productCategoryController,
 };

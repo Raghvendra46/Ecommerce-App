@@ -7,7 +7,7 @@ const AdminMenu = () => {
       <div className="text-center">
         <div className="list-group dashboard-menu">
           <NavLink
-            to="/dashbord/admin"
+            to="/dashboard/admin"
             className=""
             style={{ textDecoration: "none" }}
           >
