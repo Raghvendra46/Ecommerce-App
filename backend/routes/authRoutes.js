@@ -16,7 +16,7 @@ router.post("/login", login);
 router.get("/test", requireSignIn, isAdmin, testApi);
 
 router.post("/forgot-password", forgotPassword);
-router.post("/update-profile", updateProfile);
+router.put("/profile", requireSignIn, updateProfile);
 
 router.get("/user-auth", requireSignIn, (req, res) => {
   res.status(200).send({ ok: true });
