@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import CategoryForm from "../../Form/CategoryForm";
 import { Modal } from "antd";
+import { MdDelete, MdModeEditOutline } from "react-icons/md";
 
 const CreateCategory = () => {
   const [categories, setCategories] = useState();
@@ -139,8 +140,14 @@ const CreateCategory = () => {
                             setUpdatedName(c.name);
                             setSelected(c);
                           }}
-                          style={{ marginRight: "10px" }} // Adjust the margin for spacing
+                          style={{
+                            marginRight: "10px",
+                            display: "inline-flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }} // Adjust the margin for spacing
                         >
+                          <MdModeEditOutline />
                           Edit
                         </button>
                         <button
@@ -148,7 +155,13 @@ const CreateCategory = () => {
                           onClick={() => {
                             handleDelete(c._id);
                           }}
+                          style={{
+                            display: "inline-flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
                         >
+                          <MdDelete />
                           Delete
                         </button>
                       </td>

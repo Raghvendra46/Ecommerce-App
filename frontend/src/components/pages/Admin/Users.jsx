@@ -3,6 +3,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import Layout from "../../layouts/Layout";
 import AdminMenu from "../../layouts/AdminMenu";
+import { MdDelete, MdModeEditOutline } from "react-icons/md";
 
 const Users = () => {
   const [user, setUsers] = useState([]);
@@ -263,9 +264,13 @@ const Users = () => {
                           ...buttonStyle,
                           padding: "5px 10px",
                           fontSize: "12px",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          justifyContent: "center",
                         }}
                         onClick={() => handleEdit(user)}
                       >
+                        <MdModeEditOutline />
                         Edit
                       </button>
                       <button
@@ -274,9 +279,13 @@ const Users = () => {
                           ...buttonStyle,
                           padding: "5px 10px",
                           fontSize: "12px",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          justifyContent: "center",
                         }}
                         onClick={() => handleDelete(user._id)}
                       >
+                        <MdDelete />
                         Delete
                       </button>
                     </td>

@@ -73,6 +73,8 @@ const styles = {
   card: {
     height: "300px",
     width: "100%",
+    padding: "20px 0",
+    overflow: "hidden",
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",

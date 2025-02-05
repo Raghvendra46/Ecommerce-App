@@ -75,6 +75,10 @@ const Header = () => {
                           auth?.user?.role === 1 ? "admin" : "user"
                         }`}
                         className="dropdown-item"
+                        style={{
+                          display: "inline-flex",
+                          alignItems: "center",
+                        }}
                       >
                         <MdSpaceDashboard /> Dashboard
                       </NavLink>
@@ -84,6 +88,10 @@ const Header = () => {
                         onClick={handleLogout}
                         to="/login"
                         className="dropdown-item"
+                        style={{
+                          display: "inline-flex",
+                          alignItems: "center",
+                        }}
                       >
                         <MdOutlineLogout /> Logout
                       </NavLink>
