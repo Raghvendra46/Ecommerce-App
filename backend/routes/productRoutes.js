@@ -12,6 +12,7 @@ const {
   productList,
   searchProductController,
   productCategoryController,
+  productFiltersController,
 } = require("../service/productService");
 
 const router = express.Router();
@@ -35,5 +36,7 @@ router.get("/product-list/:page", productList);
 router.get("/search/:keyword", searchProductController);
 
 router.get("/product-category/:slug", productCategoryController);
+
+router.post("/product-filters", productFiltersController);
 
 module.exports = router;
