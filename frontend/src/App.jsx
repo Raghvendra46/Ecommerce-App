@@ -19,6 +19,7 @@ import Users from "./components/pages/Admin/Users";
 import MyProfile from "./components/pages/User/MyProfile";
 import Orders from "./components/pages/User/Orders";
 import UpdateProduct from "./components/pages/Admin/UpdateProduct";
+import ProductDetails from "./components/pages/ProductDetails";
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
       <Routes>
         {/* General Routes */}
         <Route path="/" element={<HomePage />}></Route>
+        <Route path="/product/:slug" element={<ProductDetails />}></Route>
         <Route path="/signUp" element={<Register />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/about" element={<About />}></Route>

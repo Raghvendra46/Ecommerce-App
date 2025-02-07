@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../layouts/Layout";
-import { useAuth } from "../../context/Auth";
 import { Checkbox, Radio } from "antd";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const HomePage = () => {
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [checked, setChecked] = useState([]);
@@ -164,7 +165,10 @@ const HomePage = () => {
                     {p.description.substring(0, 10)}...
                   </p>
                   <div className="card-name-price">
-                    <button className="btn btn-primary ms-1">
+                    <button
+                      className="btn btn-primary ms-1"
+                      onClick={() => navigate(`/product/${p.slug}`)}
+                    >
                       More Details
                     </button>
                     <button className="btn btn-secondary ms-1">
