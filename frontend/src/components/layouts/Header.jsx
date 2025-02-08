@@ -2,13 +2,15 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../context/Auth";
 import { toast } from "react-hot-toast";
-// import { useCart } from "../../context/cart";
+import { useCart } from "../../context/cart";
 import { MdSpaceDashboard } from "react-icons/md";
 import { MdOutlineLogout } from "react-icons/md";
+import { Link } from "react-router-dom";
+import { Badge } from "antd";
 
 const Header = () => {
   const [auth, setAuth] = useAuth();
-  // const [cart] = useCart();
+  const [cart] = useCart();
 
   const handleLogout = () => {
     setAuth({ ...auth, user: null, token: "" });
@@ -26,7 +28,9 @@ const Header = () => {
         }}
       >
         <div className="container-fluid">
-          <a className="navbar-brand text-white">Ecommerce App</a>
+          <Link to="/" className="navbar-brand text-white">
+            Ecommerce App
+          </Link>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               <li className="nav-item">
@@ -103,11 +107,11 @@ const Header = () => {
               )}
 
               <li className="nav-item">
-                {/* <Badge count={cart?.length} showZero> */}
                 <NavLink to="/cart" className="nav-link text-white">
-                  Cart {/* {cart?.length} */}
+                  <Badge count={cart?.length} showZero className="text-white">
+                    Cart {`(${cart?.length})`}
+                  </Badge>
                 </NavLink>
-                {/* </Badge> */}
               </li>
             </ul>
           </div>

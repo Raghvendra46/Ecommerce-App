@@ -13,6 +13,7 @@ const {
   searchProductController,
   productCategoryController,
   productFiltersController,
+  relatedProductController,
 } = require("../service/productService");
 
 const router = express.Router();
@@ -34,6 +35,8 @@ router.get("/product-count", productCount);
 router.get("/product-list/:page", productList);
 
 router.get("/search/:keyword", searchProductController);
+
+router.get("/related-product/:pid/:cid", relatedProductController);
 
 router.get("/product-category/:slug", productCategoryController);
 

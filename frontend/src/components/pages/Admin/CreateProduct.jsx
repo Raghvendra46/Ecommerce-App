@@ -66,7 +66,14 @@ const CreateProduct = () => {
           <div className="col-md-3">
             <AdminMenu />
           </div>
-          <div className="col-md-9">
+          <div
+            className="col-md-9"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              flexDirection: "column",
+            }}
+          >
             <h1>Create Product</h1>
             <div className="m-1 w-75">
               <Select
