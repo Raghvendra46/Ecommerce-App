@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout";
 import { Checkbox, Radio } from "antd";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -10,6 +11,7 @@ const HomePage = () => {
   const [categories, setCategories] = useState([]);
   const [checked, setChecked] = useState([]);
   const [radio, setRadio] = useState([]);
+  const [cart, setCart] = useState([]);
 
   const cardImageStyle = {
     height: "200px",
@@ -171,8 +173,18 @@ const HomePage = () => {
                     >
                       More Details
                     </button>
-                    <button className="btn btn-secondary ms-1">
-                      Add To Card
+                    <button
+                      className="btn btn-secondary ms-1"
+                      onClick={() => {
+                        setCart([...cart, p]);
+                        localStorage.setItem(
+                          "cart",
+                          JSON.stringify([...cart, p])
+                        );
+                        toast.success("Item added to cart");
+                      }}
+                    >
+                      Add To Cart
                     </button>
                   </div>
                 </div>

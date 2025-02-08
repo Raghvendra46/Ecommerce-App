@@ -14,13 +14,24 @@ const ProductDetails = () => {
     if (params?.slug) getProduct();
   }, [params?.slug]);
 
-  const getProduct = async (req, res) => {
+  const getProduct = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:3000/product/get-product/${params.slug}`
+        `http://localhost:3000/product/search-product/${params.slug}`
       );
       setProduct(data?.product);
       getSimilarProduct(data?.product._id, data?.product.category._id);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getSimilarProduct = async (pid, cid) => {
+    try {
+      const { data } = await axios.get(
+        `http://localhost:3000/product/related-product/${pid}/${cid}`
+      );
+      setRelatedProducts(data?.products);
     } catch (error) {
       console.log(error);
     }

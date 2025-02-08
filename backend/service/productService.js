@@ -278,6 +278,83 @@ const productCategoryController = async (req, res) => {
   }
 };
 
+// Google Pay token controller (handling payment token)
+const googlePayPaymentController = async (req, res) => {
+  try {
+    const { token, cart } = req.body; // token from Google Pay API
+    let total = 0;
+    cart.map((item) => {
+      total += item.price;
+    });
+
+    // Use token to process payment with your payment processor
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: total * 100, // Stripe expects the amount in cents (for INR, multiply by 100)
+      currency: "inr",
+      payment_method_data: {
+        type: "card",
+        token: token, // Token from Google Pay
+      },
+      confirm: true,
+    });
+
+    if (paymentIntent.status === "succeeded") {
+      const order = new orderModel({
+        products: cart,
+        payment: paymentIntent,
+        buyer: req.user._id,
+      }).save();
+      res.json({ success: true });
+    } else {
+      res.status(500).send({ error: "Payment failed" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ error: "Payment processing error", details: error });
+  }
+};
+
+// Razorpay Order Creation Endpoint
+const createOrder = async (req, res) => {
+  try {
+    const { amount } = req.body;
+    console.log("amount ===> ", amount);
+    const options = {
+      amount: amount * 100, // Convert to smallest currency unit (paise)
+      currency: "INR",
+      receipt: `receipt_${Date.now()}`,
+    };
+    const order = await razorpay.orders.create(options);
+    console.log("order ===> ", order);
+    res.json(order);
+  } catch (error) {
+    console.error("Error creating Razorpay order:", error);
+    res.status(500).json({ message: "Failed to create Razorpay order" });
+  }
+};
+
+// Razorpay Payment Verification Endpoint
+const verifyPayment = (req, res) => {
+  try {
+    const { order_id, payment_id, signature } = req.body;
+    const generated_signature = crypto
+      .createHmac("sha256", razorpay.key_secret)
+      .update(`${order_id}|${payment_id}`)
+      .digest("hex");
+
+    if (generated_signature === signature) {
+      res.json({ success: true });
+    } else {
+      res
+        .status(400)
+        .json({ success: false, message: "Payment verification failed" });
+    }
+  } catch (error) {
+    console.error("Error verifying Razorpay payment:", error);
+    res.status(500).json({ message: "Verification error" });
+  }
+};
+
 module.exports = {
   addProduct,
   getProduct,
@@ -290,4 +367,7 @@ module.exports = {
   searchProductController,
   productCategoryController,
   productFiltersController,
+  googlePayPaymentController,
+  createOrder,
+  verifyPayment,
 };
