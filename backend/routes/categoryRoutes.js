@@ -11,14 +11,11 @@ const {
 
 const router = express.Router();
 
-router.post("/create-category", /*requireSignIn, isAdmin,*/ addCategory);
+router.post("/create-category", requireSignIn, isAdmin, addCategory);
 
-router.put("/update-category/:id", /*requireSignIn, isAdmin,*/ updateCategory);
+router.put("/update-category/:id", requireSignIn, isAdmin, updateCategory);
 
-router.delete(
-  "/delete-category/:id",
-  /*requireSignIn, isAdmin,*/ deleteCategory
-);
+router.delete("/delete-category/:id", requireSignIn, isAdmin, deleteCategory);
 
 router.get("/get-category", getCategory);
 

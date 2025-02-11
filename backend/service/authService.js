@@ -36,6 +36,7 @@ const signUp = async (req, res) => {
       });
     }
 
+    // Save User
     const user = await new userModel({
       name,
       email,
@@ -80,12 +81,13 @@ const login = async (req, res) => {
     }
 
     if (password != user.password) {
-      return res.status(401).send({
+      return res.status(400).send({
         success: false,
         message: "Invalid Password",
       });
     }
 
+    // Generate Token
     const token = await JWT.sign({ _id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "7d",
     });

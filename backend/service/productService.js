@@ -1,7 +1,20 @@
 const productModel = require("../model/productModel");
-const slugify = require("slugify");
-const fs = require("fs");
 const categoryModel = require("../model/categoryModel");
+const orderModel = require("../model/orderModel");
+const slugify = require("slugify");
+const Razorpay = require("razorpay");
+const crypto = require("crypto");
+const fs = require("fs");
+const dotenv = require("dotenv");
+const categoryModel = require("../model/categoryModel");
+
+dotenv.config();
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+
+const razorpay = new Razorpay({
+  key_id: "RAZORPAY_KEY_ID",
+  key_secret: "RAZORPAY_KEY_SECRET",
+});
 
 const addProduct = async (req, res) => {
   try {
@@ -41,6 +54,7 @@ const addProduct = async (req, res) => {
       products,
     });
   } catch (error) {
+    console.log(error);
     res.status(500).send({
       success: false,
       message: "Error in creating product",
@@ -275,9 +289,11 @@ const relatedProductController = async (req, res) => {
       products,
     });
   } catch (error) {
+    console.log(error);
     res.status(400).send({
       success: false,
       message: "Error while getting related product",
+      error: error.message,
     });
   }
 };

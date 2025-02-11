@@ -1,4 +1,3 @@
-const { get } = require("mongoose");
 const categoryModel = require("../model/categoryModel");
 const slugify = require("slugify");
 
