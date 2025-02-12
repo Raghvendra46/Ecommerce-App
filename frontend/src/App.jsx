@@ -21,6 +21,7 @@ import Orders from "./components/pages/User/Orders";
 import UpdateProduct from "./components/pages/Admin/UpdateProduct";
 import ProductDetails from "./components/pages/ProductDetails";
 import CartPage from "./components/pages/CartPage";
+import Categories from "./components/pages/Categories";
 
 const App = () => {
   return (
@@ -34,6 +35,7 @@ const App = () => {
         <Route path="/about" element={<About />}></Route>
         <Route path="/contact" element={<Contact />}></Route>
         <Route path="/policy" element={<Policy />}></Route>
+        <Route path="/categories" element={<Categories />}></Route>
         <Route path="/cart" element={<CartPage />}></Route>
         <Route path="*" element={<PageNotFound />}></Route>
         <Route path="/forgot-password" element={<ForgotPassword />}></Route>

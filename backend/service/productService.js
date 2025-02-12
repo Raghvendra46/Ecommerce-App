@@ -6,7 +6,6 @@ const Razorpay = require("razorpay");
 const crypto = require("crypto");
 const fs = require("fs");
 const dotenv = require("dotenv");
-const categoryModel = require("../model/categoryModel");
 
 dotenv.config();
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);

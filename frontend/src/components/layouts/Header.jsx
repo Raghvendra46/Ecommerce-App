@@ -44,7 +44,7 @@ const Header = () => {
               </li>
               <li className="nav-item">
                 <NavLink
-                  to="/category"
+                  to="/categories"
                   className="nav-link text-white"
                   aria-current="page"
                 >
