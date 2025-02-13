@@ -15,6 +15,7 @@ import AdminDashboard from "./components/pages/Admin/AdminDashboard";
 import CreateCategory from "./components/pages/Admin/CreateCategory";
 import CreateProduct from "./components/pages/Admin/CreateProduct";
 import Products from "./components/pages/Admin/Products";
+import Search from "./components/pages/Search";
 import Users from "./components/pages/Admin/Users";
 import MyProfile from "./components/pages/User/MyProfile";
 import Orders from "./components/pages/User/Orders";
@@ -36,6 +37,7 @@ const App = () => {
         <Route path="/contact" element={<Contact />}></Route>
         <Route path="/policy" element={<Policy />}></Route>
         <Route path="/categories" element={<Categories />}></Route>
+        <Route path="/search" element={<Search />}></Route>
         <Route path="/cart" element={<CartPage />}></Route>
         <Route path="*" element={<PageNotFound />}></Route>
         <Route path="/forgot-password" element={<ForgotPassword />}></Route>
