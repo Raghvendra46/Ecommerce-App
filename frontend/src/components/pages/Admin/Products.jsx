@@ -9,6 +9,7 @@ const Products = () => {
   const [products, setProducts] = useState();
 
   const getAllProducts = async () => {
+    console.log("in getAllProducts");
     try {
       const { data } = await axios.get(
         "http://localhost:3000/product/get-product"
@@ -21,6 +22,7 @@ const Products = () => {
   };
 
   useEffect(() => {
+    console.log("in useEffect ==== >");
     getAllProducts();
   }, []);
 

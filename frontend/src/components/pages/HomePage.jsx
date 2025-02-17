@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../layouts/Layout";
 import { Checkbox, Radio } from "antd";
+import { Prices } from "../Prices";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useCart } from "../../context/cart";
+import "../../styles/Homepage.css";
+import { AiOutlineReload } from "react-icons/ai";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -11,7 +15,10 @@ const HomePage = () => {
   const [categories, setCategories] = useState([]);
   const [checked, setChecked] = useState([]);
   const [radio, setRadio] = useState([]);
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useCart();
+  const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   const cardImageStyle = {
     height: "200px",
@@ -77,6 +84,36 @@ const HomePage = () => {
     getAllCategories();
   }, []);
 
+  const getTotal = async () => {
+    try {
+      const { data } = await axios.get(
+        `http://localhost:3000/product/product-count`
+      );
+      setTotal(data?.total);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (page === 1) return;
+    loadMore();
+  }, [page]);
+
+  const loadMore = async () => {
+    try {
+      setLoading(true);
+      const { data } = await axios.get(
+        `http:localhost:3000/product/product-list/${page}`
+      );
+      setLoading(false);
+      setProducts([...products, ...data?.products]);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
+
   const handleFilter = (value, id) => {
     let all = [...checked];
     if (value) {
@@ -108,14 +145,14 @@ const HomePage = () => {
   };
 
   return (
-    <Layout>
-      <div className=" container-fluid row mt-3 homepage">
+    <Layout title={"All Products - Best offers"}>
+      <div className="row mt-3 homepage" style={{ marginLeft: "5px" }}>
         <div className="col-md-3">
           <div style={filterSectionStyle}>
-            {/* <h4 style={filterHeaderStyle}>Filter By Price</h4>
+            <h4 style={filterHeaderStyle}>Filter By Price</h4>
             <div>
               <Radio.Group onChange={(e) => setRadio(e.target.value)}>
-                {Price?.map((p) => (
+                {Prices?.map((p) => (
                   <div key={p._id}>
                     <Radio value={p.array}>
                       <span style={{ color: "#fff" }}>{p.name}</span>
@@ -123,7 +160,7 @@ const HomePage = () => {
                   </div>
                 ))}
               </Radio.Group>
-            </div> */}
+            </div>
             <div style={filterSectionStyle}>
               <h4 style={filterHeaderStyle}>Filter By Category</h4>
               <div
@@ -141,11 +178,22 @@ const HomePage = () => {
                 ))}
               </div>
             </div>
+            <div
+              className="d-flex flex-column"
+              style={{ textAlign: "center", width: "inherit" }}
+            >
+              <button
+                className="btn btn-danger"
+                onClick={() => window.location.reload()}
+              >
+                RESET FILTERS
+              </button>
+            </div>
           </div>
         </div>
 
         <div className="col-md-9">
-          <h1 className="text-center">All Product</h1>
+          <h1 className="text-center">All Products</h1>
           <div className="d-flex flex-wrap">
             {products?.map((p) => (
               <div className="card m-2" key={p._id}>
@@ -157,14 +205,14 @@ const HomePage = () => {
                 />
                 <div className="card-body">
                   <div className="card-name-price">
-                    <h6 className="card-title">{p.name}</h6>
+                    <h6 className="card-title">{p.name.substring(0, 20)}...</h6>
                     <span className="card-title">
                       <span className="a-price-symbol"></span>
-                      <span className="a-price-whole"></span>
+                      <span className="a-price-whole">₹{p.price}</span>
                     </span>
                   </div>
                   <p className="card-text">
-                    {p.description.substring(0, 10)}...
+                    {p.description.substring(0, 20)}...
                   </p>
                   <div className="card-name-price">
                     <button
@@ -190,6 +238,25 @@ const HomePage = () => {
                 </div>
               </div>
             ))}
+          </div>
+          <div className="m-2 p-3">
+            {products && products.length < total && (
+              <button
+                className="btn loadmore"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setPage(page + 1);
+                }}
+              >
+                {loading ? (
+                  "Loading ..."
+                ) : (
+                  <>
+                    Load more <AiOutlineReload />
+                  </>
+                )}
+              </button>
+            )}
           </div>
         </div>
       </div>

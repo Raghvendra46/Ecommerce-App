@@ -3,7 +3,7 @@ import { NavLink, Link } from "react-router-dom";
 import { useAuth } from "../../context/Auth";
 import { toast } from "react-hot-toast";
 import { useCart } from "../../context/cart";
-import useCategory from "../hooks/useCategory";
+import useCategory from "../../hooks/useCategory";
 import SearchInput from "../Form/SearchInput";
 import { MdSpaceDashboard } from "react-icons/md";
 import { GiShoppingBag } from "react-icons/gi";
@@ -65,7 +65,7 @@ const Header = () => {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  Category
+                  Categories
                 </Link>
                 <ul className="dropdown-menu">
                   <li>

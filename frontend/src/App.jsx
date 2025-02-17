@@ -23,6 +23,7 @@ import UpdateProduct from "./components/pages/Admin/UpdateProduct";
 import ProductDetails from "./components/pages/ProductDetails";
 import CartPage from "./components/pages/CartPage";
 import Categories from "./components/pages/Categories";
+import CategoriesProduct from "./components/pages/CategoriesProduct";
 
 const App = () => {
   return (
@@ -37,6 +38,7 @@ const App = () => {
         <Route path="/contact" element={<Contact />}></Route>
         <Route path="/policy" element={<Policy />}></Route>
         <Route path="/categories" element={<Categories />}></Route>
+        <Route path="/category/:slug" element={<CategoriesProduct />}></Route>
         <Route path="/search" element={<Search />}></Route>
         <Route path="/cart" element={<CartPage />}></Route>
         <Route path="*" element={<PageNotFound />}></Route>
