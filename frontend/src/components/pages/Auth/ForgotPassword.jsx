@@ -4,8 +4,11 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import "../../../styles/AuthStyles.css";
 import Layout from "../../layouts/Layout";
+import { environment } from "../../../environment";
 
 const ForgotPassword = () => {
+  const apiUrl = environment.apiUrl;
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -25,10 +28,7 @@ const ForgotPassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(
-        "http://localhost:3000/auth/forgot-password",
-        formData
-      );
+      const res = await axios.post(`${apiUrl}/auth/forgot-password`, formData);
       if (res && res.data.success) {
         toast.success(res.data && res.data.message);
         navigate("/login");

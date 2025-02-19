@@ -3,8 +3,11 @@ import { useAuth } from "../../context/Auth";
 import { Outlet, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Spinner from "../Spinner";
+import { environment } from "../../environment";
 
 export default function PrivateRoute() {
+  const apiUrl = environment.apiUrl;
+
   const [ok, setOk] = useState(false);
   const [auth, setAuth] = useAuth();
   const navigate = useNavigate();
@@ -12,7 +15,7 @@ export default function PrivateRoute() {
   useEffect(() => {
     const authCheck = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/auth/user-auth`);
+        const res = await axios.get(`${apiUrl}/auth/user-auth`);
         if (res.data.ok) {
           setOk(true);
         } else {

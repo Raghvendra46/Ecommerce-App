@@ -4,8 +4,11 @@ import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import Layout from "../../layouts/Layout";
 import "../../../styles/AuthStyles.css";
+import { environment } from "../../../environment";
 
 const Register = () => {
+  const apiUrl = environment.apiUrl;
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -20,14 +23,11 @@ const Register = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const signUp = async(e) => {
+  const signUp = async (e) => {
     e.preventDefault();
 
     try {
-      const res = await axios.post(
-        "http://localhost:3000/auth/signUp",
-        formData
-      );
+      const res = await axios.post(`${apiUrl}/auth/signUp`, formData);
       console.log("data => ", res.data);
 
       if (res.data.success) {

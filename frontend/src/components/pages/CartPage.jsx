@@ -7,8 +7,11 @@ import GooglePayButton from "@google-pay/button-react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import "../../styles/CartSyles.css";
+import { environment } from "../../environment";
 
 const CartPage = () => {
+  const apiUrl = environment.apiUrl;
+
   const [auth, setAuth] = useAuth();
   const [cart, setCart] = useCart();
   const [loading, setLoading] = useState(false);
@@ -46,13 +49,10 @@ const CartPage = () => {
       setLoading(true);
       const { paymentMethodData } = paymentData;
       const token = paymentMethodData.tokenizationData.token;
-      const { data } = await axios.post(
-        `http://localhost:3000/product/googlepay/payment`,
-        {
-          token,
-          cart,
-        }
-      );
+      const { data } = await axios.post(`${apiUrl}/product/googlepay/payment`, {
+        token,
+        cart,
+      });
       setLoading(false);
       localStorage.removeItem("cart");
       setCart([]);
@@ -69,7 +69,7 @@ const CartPage = () => {
     try {
       const amount = totalPrice().replace(/[^0-9.-]+/g, "");
       const { data: order } = await axios.post(
-        `http://localhost:3000/product/razorpay/create-order`,
+        `${apiUrl}/product/razorpay/create-order`,
         { amount }
       );
 
@@ -89,7 +89,7 @@ const CartPage = () => {
             signature: razorpay_signature,
           };
           const verificationResponse = await axios.post(
-            `http://localhost:3000/product/razorpay/verify`,
+            `${apiUrl}/product/razorpay/verify`,
             verificationPayload
           );
 
@@ -145,7 +145,7 @@ const CartPage = () => {
                 <div className="row card flex-row" key={p._id}>
                   <div className="col-md-4">
                     <img
-                      src={`http://localhost:3000/product/product-photo/${p._id}`}
+                      src={`${apiUrl}/product/product-photo/${p._id}`}
                       className="card-img-top"
                       alt={p.name}
                       width="100%"

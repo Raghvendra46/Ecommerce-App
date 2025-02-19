@@ -4,8 +4,11 @@ import toast from "react-hot-toast";
 import Layout from "../../layouts/Layout";
 import AdminMenu from "../../layouts/AdminMenu";
 import { MdDelete, MdModeEditOutline } from "react-icons/md";
+import { environment } from "../../../environment";
 
 const Users = () => {
+  const apiUrl = environment.apiUrl;
+
   const [user, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [selectedUsers, setSelectedUsers] = useState(null);
@@ -73,7 +76,7 @@ const Users = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/user/searchUser");
+      const response = await axios.get(`${apiUrl}/user/searchUser`);
       if (response.data.success) {
         setUsers(response.data.users);
         setFilteredUsers(response.data.users);
@@ -111,7 +114,7 @@ const Users = () => {
   const handleUpdateUser = async () => {
     try {
       const response = await axios.put(
-        `http://localhost:3000/user/updateUser/${selectedUsers._id}`,
+        `${apiUrl}/user/updateUser/${selectedUsers._id}`,
         formData
       );
       if (response.data.success) {
@@ -135,7 +138,7 @@ const Users = () => {
     if (confirmDelete) {
       try {
         const response = await axios.delete(
-          `http://localhost:3000/user/deleteUser/${userId}`
+          `${apiUrl}/user/deleteUser/${userId}`
         );
         if (response.data.success) {
           toast.success("User deleted successfully");

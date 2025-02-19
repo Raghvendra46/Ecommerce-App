@@ -5,10 +5,13 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { Select } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
+import { environment } from "../../../environment";
 
 const { Option } = Select;
 
 const UpdateProduct = () => {
+  const apiUrl = environment.apiUrl;
+
   const navigate = useNavigate();
   const params = useParams();
   const [categories, setCategories] = useState([]);
@@ -24,7 +27,7 @@ const UpdateProduct = () => {
   const getSingleProduct = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:3000/product/search-product/${params.slug}`
+        `${apiUrl}/product/search-product/${params.slug}`
       );
       setName(data.product.name);
       setId(data.product._id);
@@ -44,9 +47,7 @@ const UpdateProduct = () => {
   //get all category
   const getAllCategory = async () => {
     try {
-      const { data } = await axios.get(
-        `http://localhost:3000/category/get-category`
-      );
+      const { data } = await axios.get(`${apiUrl}/category/get-category`);
       if (data?.success) {
         setCategories(data?.category);
       }
@@ -71,7 +72,7 @@ const UpdateProduct = () => {
       photo && productData.append("photo", photo);
       productData.append("category", category);
       const { data } = axios.put(
-        `http://localhost:3000/product/update-product/${id}`,
+        `${apiUrl}/product/update-product/${id}`,
         productData
       );
       if (data?.success) {
@@ -92,7 +93,7 @@ const UpdateProduct = () => {
       let answer = window.prompt("Are You Sure want to delete this product ? ");
       if (!answer) return;
       const { data } = await axios.delete(
-        `http://localhost:3000i/product/delete-product/${id}`
+        `${apiUrl}i/product/delete-product/${id}`
       );
       toast.success("Product Deleted Successfully");
       navigate("/dashboard/admin/products");
@@ -155,7 +156,7 @@ const UpdateProduct = () => {
                 ) : (
                   <div className="text-center">
                     <img
-                      src={`http://localhost:3000/product/product-photo/${id}`}
+                      src={`${apiUrl}/product/product-photo/${id}`}
                       alt="product_photo"
                       height={"200px"}
                       className="img img-responsive"

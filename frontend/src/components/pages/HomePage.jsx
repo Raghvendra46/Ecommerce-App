@@ -8,8 +8,13 @@ import toast from "react-hot-toast";
 import { useCart } from "../../context/cart";
 import "../../styles/Homepage.css";
 import { AiOutlineReload } from "react-icons/ai";
+import { environment } from "../../environment";
 
 const HomePage = () => {
+  const apiUrl = environment.apiUrl;
+
+  console.log("apiUrl === ", apiUrl);
+
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -54,9 +59,7 @@ const HomePage = () => {
 
   const getAllProducts = async () => {
     try {
-      const { data } = await axios.get(
-        "http://localhost:3000/product/get-product"
-      );
+      const { data } = await axios.get(`${apiUrl}/product/get-product`);
       setProducts(data.products);
     } catch (error) {
       console.log(error);
@@ -69,9 +72,7 @@ const HomePage = () => {
 
   const getAllCategories = async () => {
     try {
-      const { data } = await axios.get(
-        "http://localhost:3000/category/get-category"
-      );
+      const { data } = await axios.get(`${apiUrl}/category/get-category`);
       if (data?.success) {
         setCategories(data?.category);
       }
@@ -86,9 +87,7 @@ const HomePage = () => {
 
   const getTotal = async () => {
     try {
-      const { data } = await axios.get(
-        `http://localhost:3000/product/product-count`
-      );
+      const { data } = await axios.get(`${apiUrl}/product/product-count`);
       setTotal(data?.total);
     } catch (error) {
       console.log(error);
@@ -104,7 +103,7 @@ const HomePage = () => {
     try {
       setLoading(true);
       const { data } = await axios.get(
-        `http:localhost:3000/product/product-list/${page}`
+        `${apiUrl}/product/product-list/${page}`
       );
       setLoading(false);
       setProducts([...products, ...data?.products]);
@@ -134,10 +133,10 @@ const HomePage = () => {
 
   const filterProduct = async () => {
     try {
-      const { data } = await axios.post(
-        `http://localhost:3000/product/product-filters`,
-        { checked, radio }
-      );
+      const { data } = await axios.post(`${apiUrl}/product/product-filters`, {
+        checked,
+        radio,
+      });
       setProducts(data?.products);
     } catch (error) {
       console.log(error);
@@ -201,7 +200,7 @@ const HomePage = () => {
             {products?.map((p) => (
               <div className="card m-2" key={p._id}>
                 <img
-                  src={`http://localhost:3000/product/product-photo/${p._id}`}
+                  src={`${apiUrl}/product/product-photo/${p._id}`}
                   className="card-img-top"
                   alt={p.name}
                   style={cardImageStyle}

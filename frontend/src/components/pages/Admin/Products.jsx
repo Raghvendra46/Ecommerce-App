@@ -4,16 +4,17 @@ import AdminMenu from "../../layouts/AdminMenu";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import { environment } from "../../../environment";
 
 const Products = () => {
+  const apiUrl = environment.apiUrl;
+
   const [products, setProducts] = useState();
 
   const getAllProducts = async () => {
     console.log("in getAllProducts");
     try {
-      const { data } = await axios.get(
-        "http://localhost:3000/product/get-product"
-      );
+      const { data } = await axios.get(`${apiUrl}/product/get-product`);
       setProducts(data.products);
     } catch (error) {
       console.log(error);
@@ -44,7 +45,7 @@ const Products = () => {
               >
                 <div className="card" style={styles.card}>
                   <img
-                    src={`http://localhost:3000/product/product-photo/${p._id}`}
+                    src={`${apiUrl}/product/product-photo/${p._id}`}
                     className="card-img-top"
                     alt={p.name}
                     style={styles.cardImage}

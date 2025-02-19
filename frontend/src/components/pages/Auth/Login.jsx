@@ -5,8 +5,11 @@ import { toast } from "react-hot-toast";
 import Layout from "../../layouts/Layout";
 import "../../../styles/AuthStyles.css";
 import { useAuth } from "../../../context/Auth";
+import { environment } from "../../../environment";
 
 const Login = () => {
+  const apiUrl = environment.apiUrl;
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -24,10 +27,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.post(
-        "http://localhost:3000/auth/login",
-        formData
-      );
+      const res = await axios.post(`${apiUrl}/auth/login`, formData);
 
       if (res.data.success) {
         toast.success("User Login Successful");

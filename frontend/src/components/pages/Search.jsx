@@ -4,8 +4,11 @@ import { useSearch } from "../../context/search.jsx";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../context/cart.jsx";
 import toast from "react-hot-toast";
+import { environment } from "../../environment.ts";
 
 const Search = () => {
+  const apiUrl = environment.apiUrl;
+
   const [values] = useSearch();
   const navigate = useNavigate();
   const [cart, setCart] = useCart();
@@ -38,7 +41,7 @@ const Search = () => {
                 }}
               >
                 <img
-                  src={`http://localhost:3000/product/product-photo/${p._id}`}
+                  src={`${apiUrl}/product/product-photo/${p._id}`}
                   className="card-img-top"
                   alt={p.name}
                   style={{

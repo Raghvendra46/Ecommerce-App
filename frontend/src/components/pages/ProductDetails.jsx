@@ -4,8 +4,11 @@ import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { useCart } from "../../context/cart";
 import toast from "react-hot-toast";
+import { environment } from "../../environment";
 
 const ProductDetails = () => {
+  const apiUrl = environment.apiUrl;
+
   const params = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState({});
@@ -19,7 +22,7 @@ const ProductDetails = () => {
   const getProduct = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:3000/product/search-product/${params.slug}`
+        `${apiUrl}/product/search-product/${params.slug}`
       );
       setProduct(data?.product);
       getSimilarProduct(data?.product._id, data?.product.category._id);
@@ -31,7 +34,7 @@ const ProductDetails = () => {
   const getSimilarProduct = async (pid, cid) => {
     try {
       const { data } = await axios.get(
-        `http://localhost:3000/product/related-product/${pid}/${cid}`
+        `${apiUrl}/product/related-product/${pid}/${cid}`
       );
       setRelatedProducts(data?.products);
     } catch (error) {
@@ -50,7 +53,7 @@ const ProductDetails = () => {
           style={{ display: "flex", justifyContent: "center" }}
         >
           <img
-            src={`http://localhost:3000/product/product-photo/${product._id}`}
+            src={`${apiUrl}/product/product-photo/${product._id}`}
             className="img-fluid"
             alt={product.name}
             style={{
@@ -124,7 +127,7 @@ const ProductDetails = () => {
               }}
             >
               <img
-                src={`http://localhost:3000/product/product-photo/${p._id}`}
+                src={`${apiUrl}/product/product-photo/${p._id}`}
                 className="card-img-top"
                 alt={p.name}
                 style={{

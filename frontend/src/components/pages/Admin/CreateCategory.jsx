@@ -6,8 +6,11 @@ import axios from "axios";
 import CategoryForm from "../../Form/CategoryForm";
 import { Modal } from "antd";
 import { MdDelete, MdModeEditOutline } from "react-icons/md";
+import { environment } from "../../../environment";
 
 const CreateCategory = () => {
+  const apiUrl = environment.apiUrl;
+
   const [categories, setCategories] = useState();
   const [name, setName] = useState();
   const [visible, setVisible] = useState();
@@ -17,12 +20,9 @@ const CreateCategory = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post(
-        "http://localhost:3000/category/create-category",
-        {
-          name,
-        }
-      );
+      const { data } = await axios.post(`${apiUrl}/category/create-category`, {
+        name,
+      });
       if (data?.success) {
         toast.success(`${name} has been created`);
         getAllCategory();
@@ -37,9 +37,7 @@ const CreateCategory = () => {
 
   const getAllCategory = async () => {
     try {
-      const { data } = await axios.get(
-        "http://localhost:3000/category/get-category"
-      );
+      const { data } = await axios.get(`${apiUrl}/category/get-category`);
       if (data?.success) {
         setCategories(data?.category);
       }
@@ -57,7 +55,7 @@ const CreateCategory = () => {
     e.preventDefault();
     try {
       const { data } = await axios.put(
-        `http://localhost:3000/category/update-category/${selected._id}`,
+        `${apiUrl}/category/update-category/${selected._id}`,
         { name: updatedName }
       );
       if (data?.success) {
@@ -77,7 +75,7 @@ const CreateCategory = () => {
   const handleDelete = async (pId) => {
     try {
       const { data } = await axios.delete(
-        `http://localhost:3000/category/delete-category/${pId}`
+        `${apiUrl}/category/delete-category/${pId}`
       );
       if (data?.success) {
         toast.success("Category deleted successfully");
