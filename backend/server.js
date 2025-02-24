@@ -14,7 +14,8 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    // origin: "http://localhost:5173", (for local)
+    origin: "http://65.0.6.130:5173", // (for aws)
     methods: "GET, POST, PUT, DELETE",
   })
 );
