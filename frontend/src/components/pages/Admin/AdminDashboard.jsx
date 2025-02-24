@@ -1,5 +1,5 @@
 import React from "react";
-import { useAuth } from "../../../context/Auth";
+import { useAuth } from "../../../context/auth";
 import AdminMenu from "../../layouts/AdminMenu";
 import Layout from "../../layouts/Layout";
 

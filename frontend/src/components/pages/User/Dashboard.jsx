@@ -1,4 +1,4 @@
-import { useAuth } from "../../../context/Auth";
+import { useAuth } from "../../../context/auth";
 import UserMenu from "../../layouts/UserMenu";
 import Layout from "../../layouts/Layout";
 

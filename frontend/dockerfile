@@ -5,7 +5,7 @@ FROM node:18-alpine AS build
 WORKDIR /app
 
 # Copy package.json and package-lock.json
-COPY package*.json ./
+COPY package*.json ./ 
 
 # Install dependencies
 RUN npm install
@@ -13,16 +13,16 @@ RUN npm install
 # Copy the entire project directory
 COPY . .
 
-# Build the React app for production
+# Build the React app for production using Vite
 RUN npm run build
 
 # Step 2: Serve the React app with Nginx
 FROM nginx:alpine
 
 # Copy the built React app to the Nginx html directory
-COPY --from=build /app/build /usr/share/nginx/html
+COPY --from=build /app/dist /usr/share/nginx/html
 
-# Copy the env.js file from the public directory in your React project
+# Copy the env.js file from the public directory in your React project (if needed)
 COPY public/env.js /usr/share/nginx/html/assets/env.js
 
 # Copy the entrypoint script to a suitable location (e.g., /usr/local/bin)

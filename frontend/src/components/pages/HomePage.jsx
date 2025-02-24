@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useCart } from "../../context/cart";
-import "../../styles/Homepage.css";
+import "../../styles/HomePage.css";
 import { AiOutlineReload } from "react-icons/ai";
 import { environment } from "../../environment";
 

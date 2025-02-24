@@ -2,7 +2,7 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
-import { AuthProvider } from "./context/Auth.jsx";
+import { AuthProvider } from "./context/auth.jsx";
 import { CartProvider } from "./context/cart.jsx";
 import { SearchProvider } from "./context/search.jsx";
 

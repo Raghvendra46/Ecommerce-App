@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Layout from "../layouts/Layout";
 import { useCart } from "../../context/cart";
-import { useAuth } from "../../context/Auth";
+import { useAuth } from "../../context/auth";
 import { useNavigate } from "react-router-dom";
 import GooglePayButton from "@google-pay/button-react";
 import axios from "axios";

@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import Layout from "../../layouts/Layout";
 import "../../../styles/AuthStyles.css";
-import { useAuth } from "../../../context/Auth";
+import { useAuth } from "../../../context/auth";
 import { environment } from "../../../environment";
 
 const Login = () => {

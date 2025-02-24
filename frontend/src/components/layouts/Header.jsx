@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
-import { useAuth } from "../../context/Auth";
+import { useAuth } from "../../context/auth";
 import { toast } from "react-hot-toast";
 import { useCart } from "../../context/cart";
 import useCategory from "../../hooks/useCategory";
