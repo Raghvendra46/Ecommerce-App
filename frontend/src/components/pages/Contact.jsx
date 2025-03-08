@@ -16,23 +16,23 @@ const Contact = () => {
         <div className="col-md-6">
           <h1 className="bg-dark p-2 text-white">Contact Us</h1>
           <p className="text-justify mt-2">
-            Any query and info about product feel free to call anytime we are
-            available 24X7
+            Regarding any query and info about product feel free to call at
+            anytime.<br></br> We are available 24X7
           </p>
           <p className="mt-3">
             <BiMailSend /> :{" "}
             <a
-              href="https://www.raystec.com"
+              href="#"
               target="blank"
               style={{ textDecoration: "none" }}
               className="text-white"
             >
               {" "}
-              Rays Technology
+              Xo Tech
             </a>
           </p>
           <p className="mt-3">
-            <BiPhoneCall /> : 9669330519
+            <BiPhoneCall /> : #####88923
           </p>
           <p className="mt-3">
             <BiSupport /> : 1800-0000-0000 (toll free)
